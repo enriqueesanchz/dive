@@ -2,9 +2,10 @@ package export
 
 import (
 	"encoding/json"
-    "github.com/sirupsen/logrus"
-	"github.com/wagoodman/dive/dive/filetree"
 
+	"github.com/sirupsen/logrus"
+
+	"github.com/wagoodman/dive/dive/filetree"
 	diveImage "github.com/wagoodman/dive/dive/image"
 )
 
@@ -26,9 +27,9 @@ func NewExport(analysis *diveImage.AnalysisResult) *export {
 
 	// export layers in order
 	for idx, curLayer := range analysis.Layers {
-        layerFileList := make([]filetree.FileInfo, 0)
+		layerFileList := make([]filetree.FileInfo, 0)
 		visitor := func(node *filetree.FileNode) error {
-		    layerFileList = append(layerFileList, node.Data.FileInfo)
+			layerFileList = append(layerFileList, node.Data.FileInfo)
 			return nil
 		}
 		err := curLayer.Tree.VisitDepthChildFirst(visitor, nil)
@@ -41,7 +42,7 @@ func NewExport(analysis *diveImage.AnalysisResult) *export {
 			DigestID:  curLayer.Digest,
 			SizeBytes: curLayer.Size,
 			Command:   curLayer.Command,
-            FileList:  layerFileList,
+			FileList:  layerFileList,
 		}
 	}
 
